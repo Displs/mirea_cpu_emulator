@@ -18,5 +18,6 @@ INC /A
 LDA /A
 CMP /B
 LDA /C
-JZ #LOOP
+JNZ #LOOP
+OUT /C
 HLT #0

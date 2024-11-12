@@ -16,7 +16,7 @@ def test_from_binary():
 
     binary_instruction = instruction.as_binary()
     decoded_instruction = instruction.from_binary(binary_instruction)
-
+    print(bin(binary_instruction))
     assert instruction.command_type == decoded_instruction.command_type
     assert instruction.address_type == decoded_instruction.address_type
-    assert instruction.operand == decoded_instruction.operand
+    assert instruction.operand.value == decoded_instruction.operand.value

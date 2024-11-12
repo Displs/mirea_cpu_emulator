@@ -28,7 +28,7 @@ def test_sum(cpu, memory):
         Instruction(CommandType.LDA, AddressingType.REGISTER, Operand(RegisterType.A)),  # Сохраняем в аккумулятор значение регистра А
         Instruction(CommandType.CMP, AddressingType.REGISTER, Operand(RegisterType.B)),  # Сравниваем значение аккумулятора с значением последнего элемента массива
         Instruction(CommandType.LDA, AddressingType.REGISTER, Operand(RegisterType.C)),  # Загружаем в аккумудятор сумму из регистра C
-        Instruction(CommandType.JZ, AddressingType.IMMEDIATE, Operand(start_instruction_address + 5)),  # Переход к следующему элементу массива, если его конец не достигнут
+        Instruction(CommandType.JNZ, AddressingType.IMMEDIATE, Operand(start_instruction_address + 5)),  # Переход к следующему элементу массива, если его конец не достигнут
         Instruction(CommandType.HLT, AddressingType.IMMEDIATE, Operand(0)),  # Завершение работы программы
     ]
     for index, instruction in enumerate(instructions):
@@ -36,6 +36,6 @@ def test_sum(cpu, memory):
         memory.write(instruction_address, instruction.as_binary())
     cpu.set_start_instruction_address(start_instruction_address)
     cpu.execute_program()
-    assert cpu.acc.value().read() == sum(arr)
+    assert cpu.acc.value() == sum(arr)
 
 

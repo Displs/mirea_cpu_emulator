@@ -7,5 +7,5 @@ class Operand:
         self.value = value
 
     @staticmethod
-    def from_text(text: str):
-        return int(text)
+    def from_text(text: str) -> 'Operand':
+        return Operand(int(text))

@@ -1,21 +1,19 @@
-import enum
+from pathlib import Path
 
-
-class RegisterName(str, enum.Enum):
-    EAX = "eax"
-    EBX = "ebx"
-    ECX = "ecx"
-    EDX = "edx"
-    ESP = "esp"
-    EBP = "ebp"
-    ESI = "esi"
-    EDI = "edi"
-    EIP = "eip"
-    EFLAGS = "eflags"
+from domain.asm_parser import ASMParser
+from domain.cpu import CPU
+from domain.memory import Memory
 
 
 def main():
-    pass
+    asm_parser = ASMParser()
+    memory = Memory(256)
+    program_text = Path('square_equation.asm').read_text('utf-8')
+    start_instruction_address = asm_parser.load_program_to_memory(program_text,
+                                                                  memory)
+    cpu = CPU(memory)
+    cpu.set_start_instruction_address(start_instruction_address)
+    cpu.execute_program()
 
 
 if __name__ == '__main__':
