@@ -8,16 +8,15 @@ from schemas.register import RegisterType
 def test_sum(cpu, memory):
     arr = [10, 4, 7, 5, 3]
     arr_size = len(arr)
-    element_address = 10
+    element_address = 1
     memory.write(0, arr_size)
-    memory.write(1, element_address)
     for arr_element in arr:
         memory.write(element_address, arr_element)
         element_address += 1
 
     start_instruction_address = element_address + 1
     instructions = [
-        Instruction(CommandType.LDA, AddressingType.DIRECT, Operand(1)),  #  Загрузить адрес первого элемента в аккумулятор
+        Instruction(CommandType.LDA, AddressingType.IMMEDIATE, Operand(1)),  #  Загрузить адрес первого элемента в аккумулятор
         Instruction(CommandType.STA, AddressingType.REGISTER, Operand(RegisterType.A)),  # Загрузить в регистр A адрес первого элемента
         Instruction(CommandType.ADD, AddressingType.DIRECT, Operand(0)),  # Получить в аккумуляторе адрес ячейки памяти после последнего элемента массива
         Instruction(CommandType.STA, AddressingType.REGISTER, Operand(RegisterType.B)),  # Загрузить адрес ячейки памяти после последнего элемента массива в регистр B
