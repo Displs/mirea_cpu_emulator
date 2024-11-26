@@ -8,7 +8,7 @@ from domain.memory import Memory
 def main():
     asm_parser = ASMParser()
     memory = Memory(256)
-    program_text = Path('square_equation.asm').read_text('utf-8')
+    program_text = Path('array_sum.asm').read_text('utf-8')
     start_instruction_address = asm_parser.load_program_to_memory(program_text,
                                                                   memory)
     cpu = CPU(memory)
